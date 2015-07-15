@@ -15,6 +15,8 @@ app.get('/', function(req, res){
   res.render("index");
 });
 
+
+//this returns the product list
 app.get("/products", function(req, res){
 
   //
@@ -29,40 +31,38 @@ app.get("/products", function(req, res){
   res.render('products', {products : productList});
 });
 
+//this returns the most popular product
 app.get("/popular_product", function(req, res){
 
   var mostPopularProduct = products.mostPopular();
   res.render('popular_product', {product : mostPopularProduct});
 });
 
-app.get("/least_popular", function(req, res){
 
+//this returns the least popular product
+app.get("/least_popular", function(req, res){
   var least_Popular = products.leastPopular();
   res.render('least_popular', {product: least_Popular});
 });
 
-app.get("/categories", function(req, res){
 
+//this returns category list
+app.get("/categories", function(req, res){
   var listCategories = products.numberOfEachCategorySold();
   res.render('categories', {categories : listCategories});
 
 });
 
-
+//this returns most popular category
 app.get("/most_popular_cat", function(req, res){
+  var most_popular_cat = products.findMostAndLeastPopularCategories();
+  res.render('most_popular_cat', most_popular_cat.mostPopularCat);
+});
 
-  var listOfCategories = products.category();
-  var categoryList = [];
-  
-  for (key in listOfCategories){
-    categoryList.push({
-      catName: key,
-      qty: listOfCategories[key]
-    });
-    res.render("most_popular_cat", {category : categoryList[0]})
-  }
-})
-
+app.get("/least_popular_cat", function(req, res){
+  var least_popular_cat = products.findMostAndLeastPopularCategories();
+  res.render('least_popular_cat', least_popular_cat.leastPopularCat);
+});
 
 
 
