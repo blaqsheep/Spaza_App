@@ -25,15 +25,48 @@ app.get("/products", function(req, res){
       name: key,
       qty: listOfProducts[key]
     });
-  }
-  //
-  
-  //
+  }//rendering product list to the server
   res.render('products', {products : productList});
+});
+
+app.get("/popular_product", function(req, res){
+
+  var mostPopularProduct = products.mostPopular();
+  res.render('popular_product', {product : mostPopularProduct});
+});
+
+app.get("/least_popular", function(req, res){
+
+  var least_Popular = products.leastPopular();
+  res.render('least_popular', {product: least_Popular});
+});
+
+app.get("/categories", function(req, res){
+
+  var listCategories = products.numberOfEachCategorySold();
+  res.render('categories', {categories : listCategories});
 
 });
 
-app.use(express.static('Images'));
+
+app.get("/most_popular_cat", function(req, res){
+
+  var listOfCategories = products.category();
+  var categoryList = [];
+  
+  for (key in listOfCategories){
+    categoryList.push({
+      catName: key,
+      qty: listOfCategories[key]
+    });
+    res.render("most_popular_cat", {category : categoryList[0]})
+  }
+})
+
+
+
+
+//app.use(express.static('Images'));
 
 // create a route
 //app.get('/', function (req, res) {      
@@ -41,9 +74,9 @@ app.use(express.static('Images'));
  //res.send('Hello World!');
 //});
 
-app.get('/', function(req, res){
-res.send("Most popular products")
-})
+//app.get('/', function(req, res){
+//res.send("Most popular products")
+//})
 // new route
 app.get('/hello', function (req, res){
 res.send('Hello CodeX!');
