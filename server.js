@@ -59,11 +59,19 @@ app.get("/most_popular_cat", function(req, res){
   res.render('most_popular_cat', most_popular_cat.mostPopularCat);
 });
 
+//This returns least popular category
 app.get("/least_popular_cat", function(req, res){
   var least_popular_cat = products.findMostAndLeastPopularCategories();
   res.render('least_popular_cat', least_popular_cat.leastPopularCat);
 });
 
+//This returns sales history
+app.get("/sales_history", function(req, res){
+  
+  var productList = products.productNames();
+  res.render('sales_history',{products:productList});
+
+});
 
 
 //app.use(express.static('Images'));

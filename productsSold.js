@@ -3,10 +3,12 @@ var fs = require('fs');
 module.exports = function(fileName){
 
 	//
-	this.productNames = function(callback) {
+	this.productNames = function() {
 		var linesInFile = fs.readFileSync(fileName, "utf8"); 
 		var lines = linesInFile.split('\r');
 		var productList =[];
+		
+
 
 		lines.forEach(function(fileLines){
 
@@ -21,8 +23,9 @@ module.exports = function(fileName){
 			};
 			productList.push(productMap);
 		  });
-		console.log(productList);
-		callback(null, productList);
+
+		return productList;
+
 	};
 
 	var groupedItems = function(){
